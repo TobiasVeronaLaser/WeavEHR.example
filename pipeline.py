@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from open_icu import ExtractionStep, OpenICUProject
-from open_icu.logging import configure_logging
+from weavehr import ExtractionStep, WeavEHRProject
+from weavehr.logging import configure_logging
 
 configure_logging(level="DEBUG")
 
 config_path = Path.cwd() / "config" 
 project_path = Path.cwd() / "output" / "project"
-with OpenICUProject(project_path, overwrite=True) as project:
+with WeavEHRProject(project_path, overwrite=True) as project:
 
     extraction_step = ExtractionStep.load(project, config_path / "extraction.yml")
     extraction_step.run()

@@ -8,7 +8,7 @@ config:
   concept_step: Concept
 
   codes_metadata: # extract code order
-    - path: /workspaces/OpenICU.example/output/project/datasets/extraction/metadata/codes.parquet
+    - path: /workspaces/WeavEHR.example/output/project/datasets/extraction/metadata/codes.parquet
 
   datasets:
     include: 
