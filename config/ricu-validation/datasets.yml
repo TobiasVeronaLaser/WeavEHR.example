@@ -1,0 +1,51 @@
+# Datasets for the RICU validation runs (scripts/run_datasets.py).
+#
+# data_root: directory below which the source datasets live. Leave null here
+#   and pass --data-root or set WEAVEHR_DATA_ROOT on the execution machine.
+# source: dataset directory, relative to data_root (or absolute). It must have
+#   the layout expected by the WeavEHR table configs of that dataset/version.
+# version: WeavEHR dataset version (a directory below WeavEHR configs/datasets).
+#   Must be a quoted string ("1.10", not 1.10, which YAML reads as 1.1).
+# extension_columns: concept-step extension columns required downstream by
+#   weavehr-yaib (dataset version provenance, item review, AUMC stay provenance).
+# required_extraction_events: extraction events weavehr-yaib needs to rebuild
+#   stay windows; they must exist and contain rows, otherwise the run fails.
+# optional_extraction_tables: WeavEHR tables of this dataset version that may
+#   produce no output (e.g. absent from the export). Every other configured
+#   table must produce output; a missing one fails the run (missing source).
+data_root: null
+
+datasets:
+  aumc:
+    version: "1.5.0"
+    # AmsterdamUMCdb converted to OMOP CDM 5.4 by AMSTEL (not a PhysioNet
+    # download): adjust to the location of the OMOP export.
+    source: aumc/1.5.0
+    extension_columns:
+      dataset_version: col("version")
+      source_code: col("code")
+      visit_occurrence_id: col("visit_occurrence_id")
+    required_extraction_events: [VISIT_START, VISIT_END]
+
+  eicu-crd:
+    version: "2.0"
+    source: physionet.org/files/eicu-crd/2.0
+    extension_columns:
+      dataset_version: col("version")
+      source_code: col("code")
+
+  hirid:
+    version: "1.1.1"
+    source: physionet.org/files/hirid/1.1.1
+    extension_columns:
+      dataset_version: col("version")
+      source_code: col("code")
+    required_extraction_events: [ICU_ADMISSION, OBSERVATION]
+
+  mimic-iv:
+    # 2.2 matches RICU's miiv source; WeavEHR also bundles 3.1.
+    version: "2.2"
+    source: physionet.org/files/mimiciv/2.2
+    extension_columns:
+      dataset_version: col("version")
+      source_code: col("code")

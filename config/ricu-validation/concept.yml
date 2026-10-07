@@ -1,0 +1,9 @@
+# WeavEHR concept step template (current WeavEHR schema). The runner adds the
+# selected dataset under config.mapping_configs and writes the result to
+# <output-root>/<dataset>/config/concept.yml.
+name: Concept
+version: 1.0.0
+
+config:
+  extraction_step: Extraction
+  mapping_configs: []

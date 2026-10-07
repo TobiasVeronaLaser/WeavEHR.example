@@ -1,0 +1,8 @@
+# WeavEHR extraction step template (current WeavEHR schema). The runner adds the
+# selected dataset under config.data and writes the result to
+# <output-root>/<dataset>/config/extraction.yml.
+name: Extraction
+version: 1.0.0
+
+config:
+  data: []
