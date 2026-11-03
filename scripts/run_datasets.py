@@ -674,7 +674,7 @@ def check_extraction_output(
 def check_concept_output(concept_root: Path, dataset: str) -> dict[str, object]:
     """Concept files may be empty individually (a concept can be absent from a
     dataset), but a run whose concept files are all empty failed."""
-    files = sorted(concept_root.glob(f"*/*/{dataset}.parquet"))
+    files = sorted(concept_root.glob(f"*/*/{dataset}/*.parquet"))
     if not files:
         raise RunnerError(f"concept generation produced no concept files for {dataset}")
     rows = [parquet_rows(file) for file in files]

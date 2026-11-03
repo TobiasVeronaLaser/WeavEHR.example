@@ -12,7 +12,7 @@ Controlled through environment variables:
 
 Outputs mimic WeavEHR's layout with synthetic, non-medical content:
 workspace/extraction/<dataset>/<version>/<table>/<EVENT>.parquet and
-workspace/concept/<concept>/<version>/<dataset>.parquet.
+workspace/concept/<concept>/<version>/<dataset>/<dataset-version>.parquet.
 """
 
 import json
@@ -141,9 +141,9 @@ class _Step:
         else:
             rows = 0 if os.environ.get("FAKE_WEAVEHR_ZERO_CONCEPTS") == "1" else ROWS
             concept = workspace / "concept"
-            _write(concept / "heart_rate" / "1.0.0" / f"{dataset}.parquet", rows)
+            _write(concept / "heart_rate" / "1.0.0" / dataset / f"{version}.parquet", rows)
             # A concept that is legitimately empty for this dataset.
-            _write(concept / "rare_concept" / "1.0.0" / f"{dataset}.parquet", 0)
+            _write(concept / "rare_concept" / "1.0.0" / dataset / f"{version}.parquet", 0)
 
     def run(self) -> None:
         entry = self._entry()
